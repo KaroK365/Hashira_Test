@@ -13,6 +13,16 @@ public class Rational {
         if (denominator.equals(BigInteger.ZERO)) {
             throw new ArithmeticException("Denominator cannot be zero.");
         }
+
+        // --- NEW LOGIC TO FIX THE SIGN ---
+        // Ensure the denominator is always positive.
+        if (denominator.signum() < 0) {
+            // If denominator is negative, move the sign to the numerator.
+            numerator = numerator.negate();
+            denominator = denominator.negate();
+        }
+        // --- END NEW LOGIC ---
+
         // Simplify the fraction by dividing by the greatest common divisor (GCD)
         BigInteger gcd = numerator.gcd(denominator);
         this.numerator = numerator.divide(gcd);
